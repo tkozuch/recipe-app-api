@@ -10,6 +10,8 @@ WORKDIR /app
 EXPOSE 8000
 
 ARG DEV=false
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client && \
@@ -23,7 +25,6 @@ RUN python -m venv /py && \
     apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
-        --no-create-home \
         django-user
 
 ENV PATH="/py/bin:$PATH"
